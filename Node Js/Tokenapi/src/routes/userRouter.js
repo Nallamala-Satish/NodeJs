@@ -1,6 +1,6 @@
 const express = require('express')
 const { signUp, login, verifyToken, Home, getToken, UploadProducts, uploadImg,
-     getProducts, getStates, getCountries, Countries, States,  } = require('../controller/userController')
+     getProducts, getStates, getCountries, Countries, States, Carts, getCarts,  } = require('../controller/userController')
 const router = express.Router()
 const multer = require('multer');
 const upload = multer();
@@ -15,5 +15,7 @@ router.route('/countries').post(Countries)
 router.route('/states').post(States)
 router.route('/getCountries').get(getCountries)
 router.route('/getStates/:id').get(getStates)
+router.route('/cart').post(Carts)
+router.route('/getCarts').get(getCarts)
 
 module.exports = router;

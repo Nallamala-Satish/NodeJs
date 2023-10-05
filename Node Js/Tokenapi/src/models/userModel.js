@@ -22,11 +22,23 @@ const stateSchema = new mongoose.Schema({
   name :{type:String,require:true}
 })
 
+const itemSchema = new mongoose.Schema({
+  name: {type:String,require:true},
+  description: {type:String,require:true},
+});
+
+const cartSchema = new mongoose.Schema({
+  title: {type:String,require:true},
+  // items: [itemSchema], // Array of objects
+  items:{type:Array,require:true}
+});
+
+const Cart = mongoose.model('carts', cartSchema)
 const User =  mongoose.model("user", userSchema);
 const Product = mongoose.model('products', productSchema)
 const Country = mongoose.model('Countries',countrySchema)
 const State = mongoose.model("States",stateSchema)
 
 module.exports ={
-    User, Product, Country, State
+    User, Product, Country, State, Cart
 }

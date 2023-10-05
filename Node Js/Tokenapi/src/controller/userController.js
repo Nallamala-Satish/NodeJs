@@ -1,13 +1,8 @@
-const { User, Product, Country, State } = require("../models/userModel");
+const { User, Product, Country, State, Cart } = require("../models/userModel");
 const bcrypt = require('bcryptjs');
 const jwt =require('jsonwebtoken');
 const crypto = require("crypto");
 const multer = require('multer');
-
-const port = process.env.PORT;
-console.log(port)
-const baseUrl=`http://localhost:${4000}/src/upload/`
-
 
 
 const storage = multer.diskStorage({
@@ -205,7 +200,27 @@ const States = async(req,res)=>{
   }
 }
 
+const Carts = async (req,res)=>{
+  try{
+     const {title,items} = req.body
+     const carts = new Cart({title,items})
+     const Carts = await carts.save()
+     res.status(201).json(Carts);
+  }catch(err){
+    res.status(500).send(err)
+  }
+}
+
+const getCarts = async (req,res)=>{
+  try{
+    const Carts = await Cart.find()
+    res.status(201).json(Carts);
+  }catch(err){
+    res.status(500).send(err)
+  }
+}
+
 module.exports={
     signUp,login,verifyToken,Home,getToken,getProducts,UploadProducts,
-    uploadImg,getCountries,getStates,Countries,States
+    uploadImg,getCountries,getStates,Countries,States,Carts,getCarts
 }
